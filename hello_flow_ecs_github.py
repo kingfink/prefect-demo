@@ -1,22 +1,24 @@
 import time
 
+import prefect
 from prefect.storage.github import GitHub
-from prefect import task, Flow, Parameter
+from prefect import task, Flow
 from prefect.run_configs import ECSRun
 
 @task
 def say_hello():
     time.sleep(10)
 
+    logger = prefect.context.get('logger')
     logger.info(f'Hello!')
 
 with Flow('hello-flow-ecs-github') as flow:
     say_hello()
 
 flow.storage = GitHub(
-    repo='king-fink/prefect-demo', 
+    repo='kingfink/prefect-demo', 
     path='hello_flow_ecs_github.py', 
-    ref='main'
+    ref='master'
 )
 
 flow.run_config = ECSRun(
