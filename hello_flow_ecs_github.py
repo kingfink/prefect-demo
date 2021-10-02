@@ -1,6 +1,5 @@
 import time
 
-import prefect
 from prefect.storage.github import GitHub
 from prefect import task, Flow, Parameter
 from prefect.run_configs import ECSRun
