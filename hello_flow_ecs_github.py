@@ -7,16 +7,13 @@ from prefect import task, Flow, Parameter
 from prefect.run_configs import ECSRun
 
 @task
-def say_hello(name):
+def say_hello():
     time.sleep(10)
 
-    greeting = os.environ.get('GREETING')
-    logger = prefect.context.get('logger')
-    logger.info(f'{greeting}, {name}!')
+    logger.info(f'Hello!')
 
 with Flow('hello-flow-ecs') as flow:
-    people = Parameter('people', default=['Arthur', 'Ford', 'Marvin'])
-    say_hello.map(people)
+    say_hello()
 
 flow.storage = GitHub(
     repo='king-fink/prefect-demo', 
