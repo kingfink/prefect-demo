@@ -10,7 +10,7 @@ def say_hello():
 
     logger.info(f'Hello!')
 
-with Flow('hello-flow-ecs') as flow:
+with Flow('hello-flow-ecs-github') as flow:
     say_hello()
 
 flow.storage = GitHub(
